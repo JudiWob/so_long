@@ -14,16 +14,20 @@ int close_window(void *param)
     exit(0);
 }
 
-int main()
+int main(int argc, char **argv)
 {
+    t_struct *mlx;
+
+    mlx = NULL;
+    take_input(argc, argv[1], mlx);
+
+
+    
     void    *mlx_connection;
     void    *mlx_window;
     mlx_connection = mlx_init();
 
     mlx_window = mlx_new_window(mlx_connection, 500, 500, "My first window");
-
-	
-
 
     mlx_pixel_put(mlx_connection, mlx_window, 250, 250, 0x00FF00);
 

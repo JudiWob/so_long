@@ -19,9 +19,19 @@
 
 #include <stdlib.h>
 
-//#include <GL/gl.h>
-//#include <GL/glu.h>
-//#include <OpenGL/glu.h> 
-//#include <OpenGL/gl.h> 
+typedef struct s_struct
+{
+    int     fd;
+    char    **map;
+} t_struct;
+
+//take input
+void    take_input(int argc, char *argv1, t_struct *mlx);
+void    check_input(int argc, char *argv1);
+int     count_lines(int fd);
+void    read_map(char *argv1, t_struct *mlx);
+
+//map
+void    check_map(t_struct *mlx);
 
 # endif
