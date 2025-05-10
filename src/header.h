@@ -23,12 +23,14 @@ typedef struct s_struct
 {
     int     fd;
     char    **map;
+    int     lines;
+    int     columns;
 } t_struct;
 
 //take input
 void    take_input(int argc, char *argv1, t_struct *mlx);
 void    check_input(int argc, char *argv1);
-int     count_lines(int fd);
+int     count_lines(t_struct *mlx);
 void    read_map(char *argv1, t_struct *mlx);
 
 //map

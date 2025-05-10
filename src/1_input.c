@@ -2,7 +2,7 @@
 
 void    take_input(int argc, char *argv1, t_struct *mlx);
 void    check_input(int argc, char *argv1);
-int     count_lines(int fd);
+int     count_lines(t_struct *mlx);
 void    read_map(char *argv1, t_struct *mlx);
 
 
@@ -37,18 +37,18 @@ void    check_input(int argc, char *argv1)
     }
 }
 
-
-int count_lines(int fd)
+int count_lines(t_struct *mlx)
 {
     int count;
     char *line;
 
     count = 0;
-    while ((line = get_next_line(fd)))
+    while ((line = get_next_line(mlx->fd)))
     {
         free(line);
         count++;
     }
+    mlx->lines = count;
     return(count);
 }
 
@@ -65,7 +65,7 @@ void read_map(char *argv1, t_struct *mlx)
         printf("Error opening map file");
         exit(EXIT_FAILURE);
     }
-    lines = count_lines(mlx->fd);
+    lines = count_lines(mlx);
     map = malloc(sizeof(char *) * (lines + 1));
     if (!map)
         exit(EXIT_FAILURE);
