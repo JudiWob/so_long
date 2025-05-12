@@ -38,4 +38,8 @@ void    check_map(t_struct *mlx);
 void    is_rectangle(t_struct *mlx);
 void    is_valid_design(t_struct *mlx);
 
+//utils
+void exit_printf(char *message);
+
+
 # endif
