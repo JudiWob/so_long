@@ -35,8 +35,16 @@ void    read_map(char *argv1, t_struct *mlx);
 
 //map
 void    check_map(t_struct *mlx);
+void    trim_newlines(t_struct *mlx);
 void    is_rectangle(t_struct *mlx);
-void    is_valid_design(t_struct *mlx);
+void    is_size(t_struct *mlx);
+void    is_walls(t_struct *mlx);
+
+
+//map1
+void    is_valid_characters(t_struct *mlx);
+void    is_character_count(t_struct *mlx);
+void    is_functional(t_struct *mlx);
 
 //utils
 void exit_printf(char *message);
