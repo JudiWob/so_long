@@ -30,10 +30,12 @@ typedef struct s_struct
 //take input
 void    take_input(int argc, char *argv1, t_struct *mlx);
 void    check_input(int argc, char *argv1);
-int     count_lines(t_struct *mlx);
+int     count_lines(char *argv1, t_struct *mlx);
 void    read_map(char *argv1, t_struct *mlx);
 
 //map
 void    check_map(t_struct *mlx);
+void    is_rectangle(t_struct *mlx);
+void    is_valid_design(t_struct *mlx);
 
 # endif

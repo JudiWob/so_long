@@ -23,15 +23,15 @@ int main(int argc, char **argv)
 
 
     
-    void    *mlx_connection;
-    void    *mlx_window;
-    mlx_connection = mlx_init();
+    // void    *mlx_connection;
+    // void    *mlx_window;
+    // mlx_connection = mlx_init();
 
-    mlx_window = mlx_new_window(mlx_connection, 500, 500, "My first window");
+    // mlx_window = mlx_new_window(mlx_connection, 500, 500, "My first window");
 
-    mlx_pixel_put(mlx_connection, mlx_window, 250, 250, 0x00FF00);
+    // mlx_pixel_put(mlx_connection, mlx_window, 250, 250, 0x00FF00);
 
-	mlx_hook(mlx_window, 17, 0, close_window, NULL);
-    mlx_loop(mlx_connection);
+	// mlx_hook(mlx_window, 17, 0, close_window, NULL);
+    // mlx_loop(mlx_connection);
 
 }
