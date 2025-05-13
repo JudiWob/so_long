@@ -1,23 +1,39 @@
 #include "header.h"
 
-void    check_map(t_struct *mlx);
-void    trim_newlines(t_struct *mlx);
-void    is_rectangle(t_struct *mlx);
-void    is_size(t_struct *mlx);
-void    is_walls(t_struct *mlx);
+void    check_map(t_struct *game);
+void    trim_newlines(t_struct *game);
+void    is_rectangle(t_struct *game);
+void    is_size(t_struct *game);
+void    is_walls(t_struct *game);
 
-void  check_map(t_struct *mlx)
+void  check_map(t_struct *game)
 {
-    trim_newlines(mlx);
-    is_rectangle(mlx);
-    is_size(mlx);
-    is_walls(mlx);
-    is_valid_characters(mlx);
-    is_character_count(mlx);
-    //is_functional(mlx);
+    trim_newlines(game);
+    is_rectangle(game);
+    is_size(game);
+    is_walls(game);
+    is_valid_characters(game);
+    is_character_count(game);
+    copy_map(game);
+    find_player(game);
+    flood_fill(game, game->player_x, game->player_y);
+    check_fill(game);
 }
 
-void  is_rectangle(t_struct *mlx)
+// int i = 0;
+// int j;
+// while(game->map_cpy[i])
+// {
+//     j = 0;
+//     while (game->map_cpy[i][j])
+//     {
+//         printf("%c", game->map_cpy[i][j]);
+//         j++;
+//     }    
+//     i++;
+// }
+
+void  is_rectangle(t_struct *game)
 {
     int width;
     int temp;
@@ -25,21 +41,19 @@ void  is_rectangle(t_struct *mlx)
 
     width = -1;
     i = 0;
-    while (mlx->map[i] && i < mlx->lines)
+    while (game->map[i] && i < game->lines)
     {
-        temp = ft_strlen(mlx->map[i]);
+        temp = ft_strlen(game->map[i]);
         if(width == -1)
             width = temp;
         if(temp != width)
-            exit_printf(mlx, "Error: Map is not a rectangle\n");
+            exit_printf(game, "Error: Map is not a rectangle\n");
         i++;
     }
-    printf("Is rectangle\n");
-    mlx->columns = width;
-    printf("Rowds after rectangle %i\n", mlx->columns);
+    game->columns = width;
 }
 
-void trim_newlines(t_struct *mlx)
+void trim_newlines(t_struct *game)
 {
     int i;
     int count;
@@ -47,46 +61,44 @@ void trim_newlines(t_struct *mlx)
 
     i = 0;
     count = 0;
-    while (mlx->map[i])
+    while (game->map[i])
     {
-        nl = ft_strchr(mlx->map[i], '\n');
+        nl = ft_strchr(game->map[i], '\n');
         if (nl)
             *nl = '\0';
-        if (mlx->map[i][0] != '\0')
+        if (game->map[i][0] != '\0')
             count++;
         i++;
     }
-    mlx->lines = count;
-    printf("Lines after Trim %i\n", mlx->lines);
+    game->lines = count;
     return;
 }
 
-void  is_size(t_struct *mlx)
+void  is_size(t_struct *game)
 {
-    if(mlx->lines < 5 || mlx->columns < 3)
-        exit_printf(mlx, "Error: Map is too small, minimum 3*5 (x*y)");
+    if(game->lines < 5 || game->columns < 3)
+        exit_printf(game, "Error: Map is too small, minimum 3*5 (x*y)");
     return;
 }
 
-void  is_walls(t_struct *mlx)
+void  is_walls(t_struct *game)
 {
     int j;
 
     j = 0;
-    while(j < mlx->columns)
+    while(j < game->columns)
     {
-        if (mlx->map[0][j] != '1' || mlx->map[mlx->lines - 1][j] != '1')
-            exit_printf(mlx, "Error: Map not fully enclosed by walls\n"); 
+        if (game->map[0][j] != '1' || game->map[game->lines - 1][j] != '1')
+            exit_printf(game, "Error: Map not fully enclosed by walls\n"); 
         j++;
     }
     j = 0;
-    while(j < mlx->lines)
+    while(j < game->lines)
     {
-        if(mlx->map[j][0] != '1' || mlx->map[j][mlx->columns - 1] != '1')
-            exit_printf(mlx, "Error: Map not fully enclosed by walls\n"); 
+        if(game->map[j][0] != '1' || game->map[j][game->columns - 1] != '1')
+            exit_printf(game, "Error: Map not fully enclosed by walls\n"); 
         j++;
     }
-    printf("is enclosed\n");
     return;
 }
 
