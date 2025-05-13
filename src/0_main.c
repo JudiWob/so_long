@@ -19,7 +19,9 @@ int main(int argc, char **argv)
     t_struct *mlx;
 
     mlx = NULL;
-    take_input(argc, argv[1], mlx);
+    take_input(argc, argv[1], &mlx);
+    if(mlx)
+        free_exit(mlx);
 
 
     

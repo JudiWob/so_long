@@ -31,7 +31,7 @@ void  is_rectangle(t_struct *mlx)
         if(width == -1)
             width = temp;
         if(temp != width)
-            exit_printf("Error: Map is not a rectangle\n");
+            exit_printf(mlx, "Error: Map is not a rectangle\n");
         i++;
     }
     printf("Is rectangle\n");
@@ -64,7 +64,7 @@ void trim_newlines(t_struct *mlx)
 void  is_size(t_struct *mlx)
 {
     if(mlx->lines < 5 || mlx->columns < 3)
-        exit_printf("Error: Map is too small, minimum 3*5 (x*y)");
+        exit_printf(mlx, "Error: Map is too small, minimum 3*5 (x*y)");
     return;
 }
 
@@ -76,14 +76,14 @@ void  is_walls(t_struct *mlx)
     while(j < mlx->columns)
     {
         if (mlx->map[0][j] != '1' || mlx->map[mlx->lines - 1][j] != '1')
-            exit_printf("Error: Map not fully enclosed by walls\n"); 
+            exit_printf(mlx, "Error: Map not fully enclosed by walls\n"); 
         j++;
     }
     j = 0;
     while(j < mlx->lines)
     {
         if(mlx->map[j][0] != '1' || mlx->map[j][mlx->columns - 1] != '1')
-            exit_printf("Error: Map not fully enclosed by walls\n"); 
+            exit_printf(mlx, "Error: Map not fully enclosed by walls\n"); 
         j++;
     }
     printf("is enclosed\n");

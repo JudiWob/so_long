@@ -1,36 +1,42 @@
 #include "header.h"
 
-void    take_input(int argc, char *argv1, t_struct *mlx);
-void    check_input(int argc, char *argv1);
+void    take_input(int argc, char *argv1, t_struct **mlx);
+void    init_struct(t_struct *mlx);
+void    check_arg(int argc, char *argv1);
 int     count_lines(char *argv1, t_struct *mlx);
 void    read_map(char *argv1, t_struct *mlx);
 
 
-void take_input(int argc, char *argv1, t_struct *mlx)
+void take_input(int argc, char *argv1, t_struct **mlx)
 {
-    mlx = malloc(sizeof(t_struct));
-    if(!mlx)
+    check_arg(argc, argv1);
+    *mlx = malloc(sizeof(t_struct));
+    if (!*mlx)
         exit(EXIT_FAILURE);
-//    printf("TEST1\n");
-    check_input(argc, argv1);
-//    printf("TEST2\n");
-    read_map(argv1, mlx);
-//    printf("TEST3\n");
-    check_map(mlx);
-
-
+    init_struct(*mlx);
+    read_map(argv1, *mlx);
+    check_map(*mlx);
 }
 
-void    check_input(int argc, char *argv1)
+void init_struct(t_struct *mlx)
+{
+    mlx->map = NULL;
+    mlx->map_cpy = NULL;
+    mlx->fd = -1;
+    mlx->lines = 0;
+    mlx->columns = 0;
+}
+
+void    check_arg(int argc, char *argv1)
 {
 
     int len;
 
     if(argc != 2)
-        exit_printf("Error: Usage: \"./so_long\" \"mapname.ber\"\n");
+        exit_printf(NULL, "Error: Usage: \"./so_long\" \"mapname.ber\"\n");
     len = ft_strlen(argv1);
     if (len < 4 || ft_strcmp(argv1 + len - 4, ".ber") != 0)
-        exit_printf("Error: Wrong Fileformat, expected .ber for map\n");
+        exit_printf(NULL, "Error: Wrong Fileformat, expected .ber for map\n");
     return;
 }
 
@@ -41,7 +47,7 @@ int count_lines(char *argv1, t_struct *mlx)
 
     mlx->fd = open(argv1, O_RDONLY);
     if (mlx->fd < 0)
-        exit_printf("Error opening map file\n");
+        exit_printf(mlx, "Error opening map file\n");
     count = 0;
     while ((line = get_next_line(mlx->fd)))
     {
@@ -49,33 +55,30 @@ int count_lines(char *argv1, t_struct *mlx)
         count++;
     }
     mlx->lines = count;
-
     close(mlx->fd);
+    mlx->fd = -1;
     return count;
 }
 
 void read_map(char *argv1, t_struct *mlx)
 {
-    int lines;
-    char **map;
     char *line;
     int i;
     
-    // Open the file
-    // Get the number of lines in the file
-    lines = count_lines(argv1, mlx);
+    count_lines(argv1, mlx);
     mlx->fd = open(argv1, O_RDONLY);
     if (mlx->fd < 0)
-        exit_printf("Error opening map file\n");
-    map = malloc(sizeof(char *) * (lines + 1));
-    if (!map)
+        exit_printf(mlx, "Error opening map file\n");
+    mlx->map = malloc(sizeof(char *) * (mlx->lines + 1));
+    if (!mlx->map)
         exit(EXIT_FAILURE);
     i = 0;
     while ((line = get_next_line(mlx->fd)))
-        map[i++] = line;
-
-    map[i] = NULL;
-    mlx->map = map;
+    {
+        mlx->map[i++] = line;
+    }
+    mlx->map[i] = NULL;
     close(mlx->fd);
+    mlx->fd = -1;
     return;
 }

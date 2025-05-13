@@ -23,13 +23,14 @@ typedef struct s_struct
 {
     int     fd;
     char    **map;
+    char    **map_cpy;
     int     lines;
     int     columns;
 } t_struct;
 
 //take input
-void    take_input(int argc, char *argv1, t_struct *mlx);
-void    check_input(int argc, char *argv1);
+void    take_input(int argc, char *argv1, t_struct **mlx);
+void    check_arg(int argc, char *argv1);
 int     count_lines(char *argv1, t_struct *mlx);
 void    read_map(char *argv1, t_struct *mlx);
 
@@ -47,7 +48,11 @@ void    is_character_count(t_struct *mlx);
 void    is_functional(t_struct *mlx);
 
 //utils
-void exit_printf(char *message);
+void exit_printf(t_struct *mlx, char *message);
+
+void free_exit(t_struct *mlx);
+
+void    copy_map(t_struct *mlx);
 
 
 # endif
