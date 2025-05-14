@@ -1,36 +1,38 @@
 #include "header.h"
 
-void    take_input(int argc, char *argv1, t_struct *game);
-void    init_struct(t_struct *game);
+void    take_input(int argc, char *argv1, t_struct **game);
+void    init_struct(t_struct **game);
 void    check_arg(int argc, char *argv1, t_struct *game);
 int     count_lines(char *argv1, t_struct *game);
 void    read_map(char *argv1, t_struct *game);
 
-
-void take_input(int argc, char *argv1, t_struct *game)
+void take_input(int argc, char *argv1, t_struct **game)
 {
     init_struct(game);
-    check_arg(argc, argv1, game);
-    read_map(argv1, game);
-    check_map(game);
+    check_arg(argc, argv1, *game);
+    read_map(argv1, *game);
+    check_map(*game);
 }
 
-void init_struct(t_struct *game)
+void init_struct(t_struct **game)
 {
-    game->map = NULL;
-    game->map_cpy = NULL;
-    game->fd = -1;
-    game->lines = 0;
-    game->columns = 0;
-    game->collectibles = 0;
-    game->collected = 0;
-    game->mlx = NULL;
-    game->win = NULL;
-    game->img_player = NULL;
-    game->img_wall = NULL;
-    game->img_floor = NULL;
-    game->img_exit = NULL;
-    game->img_collectible = NULL;
+    *game = malloc(sizeof(t_struct));
+    if (!*game)
+        exit(EXIT_FAILURE);
+    (*game)->map = NULL;
+    (*game)->map_cpy = NULL;
+    (*game)->fd = -1;
+    (*game)->lines = 0;
+    (*game)->columns = 0;
+    (*game)->collectibles = 0;
+    (*game)->collected = 0;
+    (*game)->mlx = NULL;
+    (*game)->win = NULL;
+    (*game)->img_player = NULL;
+    (*game)->img_wall = NULL;
+    (*game)->img_floor = NULL;
+    (*game)->img_exit = NULL;
+    (*game)->img_collectible = NULL;
 }
 
 void    check_arg(int argc, char *argv1, t_struct *game)

@@ -8,7 +8,6 @@ void exit_printf(t_struct *game, char *message)
     exit(EXIT_FAILURE);
 }
 
-
 void free_exit(t_struct *game)
 {
     int i;
@@ -31,6 +30,13 @@ void free_exit(t_struct *game)
     {
         close(game->fd);
         game->fd = -1;
+    }
+    if (game->win)
+        mlx_destroy_window(game->mlx, game->win);
+    if(game->mlx)
+    {
+        mlx_destroy_display(game->mlx);
+        free(game->mlx);
     }
     free(game);
 }

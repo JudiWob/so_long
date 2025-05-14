@@ -41,7 +41,8 @@ typedef struct s_struct
 } t_struct;
 
 //take input
-void    take_input(int argc, char *argv1, t_struct *game);
+void    take_input(int argc, char *argv1, t_struct **game);
+void    init_struct(t_struct **game);
 void    check_arg(int argc, char *argv1, t_struct *game);
 int     count_lines(char *argv1, t_struct *game);
 void    read_map(char *argv1, t_struct *game);
@@ -68,6 +69,13 @@ void    copy_map(t_struct *game);
 void    find_player(t_struct *game);
 void    flood_fill(t_struct *game, int x, int y);
 void    check_fill(t_struct *game);
+
+//game
+void start_game(t_struct *game);
+void init_game(t_struct *game);
+void start_mlx(t_struct *game);
+
+
 //utils
 void exit_printf(t_struct *game, char *message);
 
