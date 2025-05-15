@@ -47,21 +47,21 @@ void load_images(t_struct *game)
 // The x and y variables you pass to mlx_xpm_file_to_image() will be filled with:
 // x: the width of the loaded .xpm image, in pixels
 // y: the height of the image, in pixels
-    // game->img_wall = mlx_xpm_file_to_image(game->mlx, "img/wall.xpm", &x, &y);
-    // if (!game->img_wall)
-    //     exit_printf(game, "Failed to load wall texture");
+    game->img_wall = mlx_xpm_file_to_image(game->mlx, "img/wall.xpm", &x, &y);
+    if (!game->img_wall)
+        exit_printf(game, "Failed to load wall texture");
 
     game->img_floor = mlx_xpm_file_to_image(game->mlx, "img/floor.xpm", &x, &y);
     if (!game->img_floor)
         exit_printf(game, "Failed to load floor texture");
 
-    // game->img_player = mlx_xpm_file_to_image(game->mlx, "img/player.xpm", &x, &y);
-    // if (!game->img_player)
-    //     exit_printf(game, "Failed to load player texture");
+    game->img_player = mlx_xpm_file_to_image(game->mlx, "img/player.xpm", &x, &y);
+    if (!game->img_player)
+        exit_printf(game, "Failed to load player texture");
 
-    // game->img_collectible = mlx_xpm_file_to_image(game->mlx, "img/collectible.xpm", &x, &y);
-    // if (!game->img_collectible)
-    //     exit_printf(game, "Failed to load collectible texture");
+    game->img_collectible = mlx_xpm_file_to_image(game->mlx, "img/collectible.xpm", &x, &y);
+    if (!game->img_collectible)
+        exit_printf(game, "Failed to load collectible texture");
 
     // game->img_exit = mlx_xpm_file_to_image(game->mlx, "img/exit.xpm", &x, &y);
     // if (!game->img_exit)
@@ -78,11 +78,24 @@ void render_map(t_struct *game)
         x = 0;
         while (x < game->columns)
         {
+            // Always draw the floor first
             mlx_put_image_to_window(game->mlx, game->win, game->img_floor,
                                     x * TILESIZE, y * TILESIZE);
-            x++;
+
+            // Then overlay the correct tile based on map content
+            if (game->map[y][x] == '1')
+                mlx_put_image_to_window(game->mlx, game->win, game->img_wall,
+                                        x * TILESIZE, y * TILESIZE);
+            else if (game->map[y][x] == 'C')
+                mlx_put_image_to_window(game->mlx, game->win, game->img_collectible,
+                                        x * TILESIZE, y * TILESIZE);
+            else if (game->map[y][x] == 'P')
+                mlx_put_image_to_window(game->mlx, game->win, game->img_player,
+                                        x * TILESIZE, y * TILESIZE);
+
+        x++;
         }
-        y++;
+    y++;
     }
 }
 
