@@ -25,7 +25,7 @@ int handle_mouse_close(t_struct *game)
 int keyboard_input(int keycode, t_struct *game)
 {
     if (keycode == KEY_ESC)
-        free_exit(game); // handle window closing
+        mlx_loop_end(game->mlx);  // handle window closing
     else if (keycode == KEY_W)
         move_player(game, 0, -1); // up
     else if (keycode == KEY_S)
