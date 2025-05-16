@@ -16,7 +16,7 @@
 #include "../minilibx-linux/mlx.h"
 #include "../libft/libft.h"
 
-#define TILESIZE 64
+#define TILESIZE 128
 #define KEY_W 119
 #define KEY_S 115
 #define KEY_A 97

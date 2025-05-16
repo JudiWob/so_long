@@ -56,8 +56,8 @@ void	move_player(t_struct *game, int x, int y)
     }
 	if (next_position == 'E')
     {
-        if(game->collectibles == 0)
-		    exit_printf(game, "💎💎💎🌺 You win! 🌺💎💎💎\n");
+        // if(game->collectibles == 0)
+		//     exit_printf(game, "💎💎💎🌺 You win! 🌺💎💎💎\n");
     }
     refresh_map(new_x, new_y, game);
 }
@@ -65,17 +65,13 @@ void	move_player(t_struct *game, int x, int y)
 void refresh_map(int new_x, int new_y, t_struct *game)
 {
     if (game->map[game->player_y][game->player_x] == 'S')
-    {
-        game->map[game->player_y][game->player_x] = 'E'; // leave exit visible
-    }	
+        game->map[game->player_y][game->player_x] = 'E';	
 	else
     {
         game->map[game->player_y][game->player_x] = '0';
     }
-    if (game->map[new_y][new_x] == 'E' )
-    {
-        game->map[new_y][new_x] = 'S'; // normal tile
-    }
+    if (game->map[new_y][new_x] == 'E')
+        game->map[new_y][new_x] = 'S'; 
     else
     {
         game->map[new_y][new_x] = 'P';
@@ -85,4 +81,9 @@ void refresh_map(int new_x, int new_y, t_struct *game)
 	game->movecount++;
     printf("Moves: %d\n", game->movecount);
     render_map(game);
+    if (game->map[new_y][new_x] == 'S' || game->map[new_y][new_x] == 'E')
+    {
+        if(game->collectibles == 0)
+		    exit_printf(game, "💎💎💎🌺 You win! 🌺💎💎💎\n");
+    }
 }
