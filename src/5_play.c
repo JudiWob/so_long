@@ -11,15 +11,14 @@ void play_game(t_struct *game)
     mlx_hook(game->win, 17, 0, handle_mouse_close, game);
     mlx_expose_hook(game->win, render_map, game);
     mlx_hook(game->win, 2, 1L << 0, keyboard_input, game);
-    
     mlx_loop(game->mlx);
+    free_exit(game);
 }
 
 
 int handle_mouse_close(t_struct *game)
 {
     mlx_loop_end(game->mlx); 
-    free_exit(game);
     return (0);
 }
 

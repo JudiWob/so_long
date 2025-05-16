@@ -4,7 +4,6 @@ void    exit_printf(t_struct *game, char *message);
 void    free_exit(t_struct *game);
 void    free_map(t_struct *game);
 void    destroy_images(t_struct *game);
-int     handle_close(t_struct *game);
 
 void exit_printf(t_struct *game, char *message)
 {
@@ -69,10 +68,4 @@ void destroy_images(t_struct *game)
         mlx_destroy_image(game->mlx, game->img_exit);
     if (game->img_exit_player)
         mlx_destroy_image(game->mlx, game->img_exit_player);
-}
-
-int handle_close(t_struct *game)
-{
-    free_exit(game);
-    return (0);
 }

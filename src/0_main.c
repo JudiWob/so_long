@@ -15,7 +15,6 @@ int main(int argc, char **argv)
     take_input(argc, argv, &game);
     open_window(game);
     play_game(game);
-    free_exit(game);
 }
 
 
