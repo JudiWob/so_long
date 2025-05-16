@@ -13,25 +13,11 @@ void  check_map(t_struct *game)
     is_size(game);
     is_walls(game);
     is_valid_characters(game);
-    is_character_count(game);
     copy_map(game);
     find_player(game);
     flood_fill(game, game->player_x, game->player_y);
     check_fill(game);
 }
-
-// int i = 0;
-// int j;
-// while(game->map_cpy[i])
-// {
-//     j = 0;
-//     while (game->map_cpy[i][j])
-//     {
-//         printf("%c", game->map_cpy[i][j]);
-//         j++;
-//     }    
-//     i++;
-// }
 
 void  is_rectangle(t_struct *game)
 {
@@ -78,7 +64,7 @@ void  is_size(t_struct *game)
 {
     if(game->lines < 5 || game->columns < 3)
         exit_printf(game, "Error: Map is too small, minimum 3*5 (x*y)");
-    return;
+
 }
 
 void  is_walls(t_struct *game)

@@ -1,0 +1,31 @@
+
+int mlx_hook(void *win_ptr, int event, int mask, int (*f)(), void *param);
+
+✅event
+
+Event Name	    Number
+Key Press	    2
+Key Release	    3
+Mouse Press	    4
+Mouse Release	5
+Mouse Move	    6
+Window Close (Red Cross)	17
+
+✅mask
+You must give the correct bitmask for the event number you're hooking.
+2 = 1L << 0 = 0b0001 
+
+✅(*f)()
+This is the callback function — the one that runs when a key is pressed.
+For Event Nr. 2 it is expected to have the layout: 
+    int (f*)(int keycode, t_struct *game); 
+
+
+🔔 mlx_hook(game->win, 17, 0, handle_close, game)
+
+🔔 mlx_hook(game->win, 2, 1L << 0, keyboard_input, game);
+“On this window (game->win), when a key is pressed (event 2), 
+call the function keyboard_input with game as its argument.”
+
+
+

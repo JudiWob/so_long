@@ -8,18 +8,14 @@
 ///cc main_pol.c minilibx-linux/libgame.a -lXext -lX11 -lm -lXrandr -lXcursor -lGL
 //cc main_pol.c minilibx-linux/libgame.a -framework OpenGL -framework AppKit
 
-int close_window(void *param)
-{
-    (void)param;
-    exit(0);
-}
-
 int main(int argc, char **argv)
 {
     t_struct *game;
 
-    take_input(argc, argv[1], &game);
-    start_mlx(game);
-//    if(game)
-//        free_exit(game);
+    take_input(argc, argv, &game);
+    open_window(game);
+    play_game(game);
+    free_exit(game);
 }
+
+

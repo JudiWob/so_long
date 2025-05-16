@@ -1,16 +1,16 @@
 #include "header.h"
 
-void    take_input(int argc, char *argv1, t_struct **game);
+void    take_input(int argc, char **argv, t_struct **game);
 void    init_struct(t_struct **game);
-void    check_arg(int argc, char *argv1, t_struct *game);
+void    check_argv(int argc, char **argv, t_struct *game);
 int     count_lines(char *argv1, t_struct *game);
 void    read_map(char *argv1, t_struct *game);
 
-void take_input(int argc, char *argv1, t_struct **game)
+void take_input(int argc, char **argv, t_struct **game)
 {
     init_struct(game);
-    check_arg(argc, argv1, *game);
-    read_map(argv1, *game);
+    check_argv(argc, argv, *game);
+    read_map(argv[1], *game);
     check_map(*game);
 }
 
@@ -25,24 +25,25 @@ void init_struct(t_struct **game)
     (*game)->lines = 0;
     (*game)->columns = 0;
     (*game)->collectibles = 0;
-    (*game)->collected = 0;
+    (*game)->movecount = 0;
     (*game)->mlx = NULL;
     (*game)->win = NULL;
     (*game)->img_player = NULL;
     (*game)->img_wall = NULL;
     (*game)->img_floor = NULL;
-    (*game)->img_exit = NULL;
     (*game)->img_collectible = NULL;
+    (*game)->img_exit = NULL;
+    (*game)->img_exit_player = NULL;
 }
 
-void    check_arg(int argc, char *argv1, t_struct *game)
+void    check_argv(int argc, char **argv, t_struct *game)
 {
     int len;
 
     if(argc != 2)
         exit_printf(game, "Error: Usage: \"./so_long\" \"mapname.ber\"\n");
-    len = ft_strlen(argv1);
-    if (len < 4 || ft_strcmp(argv1 + len - 4, ".ber") != 0)
+    len = ft_strlen(argv[1]);
+    if (len < 4 || ft_strcmp(argv[1] + len - 4, ".ber") != 0)
         exit_printf(game, "Error: Wrong Fileformat, expected .ber for map\n");
     return;
 }
