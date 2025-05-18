@@ -12,14 +12,16 @@
 
 #include "header.h"
 
-void	exit_printf(t_struct *game, char *message);
+void	exit_printf(t_struct *game, char *message, int fd);
 void	free_exit(t_struct *game);
 void	free_map(t_struct *game);
 void	destroy_images(t_struct *game);
+void    correct_error_message(t_struct *game, int pe, int collectibles);
 
-void	exit_printf(t_struct *game, char *message)
+
+void	exit_printf(t_struct *game, char *message, int fd)
 {
-	printf("%s", message);
+	ft_printf(fd,"%s\n", message);
 	if (game)
 		free_exit(game);
 	exit(EXIT_FAILURE);
@@ -78,4 +80,19 @@ void	destroy_images(t_struct *game)
 		mlx_destroy_image(game->mlx, game->img_exit);
 	if (game->img_exit_player)
 		mlx_destroy_image(game->mlx, game->img_exit_player);
+}
+
+void correct_error_message(t_struct *game, int pe, int collectibles)
+{
+	if (pe != 2 || collectibles < 1)
+	
+	if(pe < 2)
+		exit_printf(game, "Error: Too few P or E. Map must contain 1 each",
+			 2);
+	if(pe > 2)
+		exit_printf(game, "Error: Too many P or E. Map must contain 1 each",
+			 2);
+	if(collectibles < 1)
+		exit_printf(game, "Error: Map must contain at least 1 C",
+			 2);
 }

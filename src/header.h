@@ -91,8 +91,8 @@ void	move_player(t_struct *game, int x, int y);
 
 
 //free
-void    exit_printf(t_struct *game, char *message);
+void    exit_printf(t_struct *game, char *message, int fd);
 void    free_exit(t_struct *game);
+void    correct_error_message(t_struct *game, int pe, int collectibles);
 
-
-#endif
+# endif

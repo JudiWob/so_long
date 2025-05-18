@@ -9,12 +9,12 @@
 #    Updated: 2025/05/06 16:36:15 by jpaselt          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
 NAME        = libft.a
 CC          = gcc
 FLAGS       = -Wall -Wextra -Werror
 
 OBJ_DIR     = obj
+PRINTF_DIR  = ft_printf
 
 SOURCES     = ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c ft_strlen.c \
               ft_memset.c  ft_bzero.c  ft_memcpy.c  ft_memmove.c  ft_strlcpy.c  ft_strlcat.c \
@@ -39,8 +39,13 @@ all: $(OBJ_DIR) $(NAME)
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
 
+# Build ft_printf and merge its .o files into libft.a
 $(NAME): $(OBJS) $(BONUS_OBJS)
-	ar rcs $(NAME) $^
+	@$(MAKE) -C $(PRINTF_DIR)
+	@cp $(PRINTF_DIR)/libftprintf.a $(PRINTF_DIR)/tmp_printf.a
+	@ar x $(PRINTF_DIR)/tmp_printf.a
+	@ar rcs $(NAME) $^ *.o
+	@rm -f *.o $(PRINTF_DIR)/tmp_printf.a
 
 $(OBJ_DIR)/%.o: %.c $(HEADER)
 	$(CC) $(FLAGS) -c $< -o $@
@@ -48,9 +53,11 @@ $(OBJ_DIR)/%.o: %.c $(HEADER)
 bonus: all
 
 clean:
+	$(MAKE) -C $(PRINTF_DIR) clean
 	$(RM) -r $(OBJ_DIR)
 
 fclean: clean
+	$(MAKE) -C $(PRINTF_DIR) fclean
 	$(RM) $(NAME)
 
 re: fclean all

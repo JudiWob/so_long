@@ -36,11 +36,12 @@ void	is_valid_characters(t_struct *game)
 			else if (game->map[i][j] == 'P' || game->map[i][j] == 'E')
 				pe++;
 			else if (game->map[i][j] != '1' && game->map[i][j] != '0')
-				exit_printf(game, "Error: Map contains non valid character\n");
+				exit_printf(game, "Error: Map contains non valid character",
+					 2);
 		}
 	}
 	if (pe != 2 || game->collectibles < 1)
-		exit_printf(game, "Error: CharaOnly one P and E and at least 1 C\n");
+		correct_error_message(game, pe, game->collectibles);
 }
 
 void	copy_map(t_struct *game)
@@ -111,9 +112,9 @@ void	check_fill(t_struct *game)
 		while (game->map_cpy[i][j])
 		{
 			if (game->map_cpy[i][j] == 'C')
-				exit_printf(game, "Error: not all C are reachable\n");
+				exit_printf(game, "Error: not all C are reachable", 2);
 			if (game->map_cpy[i][j] == 'E')
-				exit_printf(game, "Error: E not reachable\n");
+				exit_printf(game, "Error: E not reachable", 2);
 			j++;
 		}
 		i++;

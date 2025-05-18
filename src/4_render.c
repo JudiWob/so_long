@@ -34,16 +34,16 @@ void	init_game(t_struct *game)
 
 	game->mlx = mlx_init();
 	if (!game->mlx)
-		exit_printf(game, "Failed to initialize MLX");
+		exit_printf(game, "Failed to initialize MLX", 2);
 	mlx_get_screen_size(game->mlx, &screen_width, &screen_height);
 	window_width = game->columns * TILESIZE;
 	window_height = game->lines * TILESIZE;
 	if (window_width > screen_width || window_height > screen_height)
-		exit_printf(game, "Error: Map is too big for the screen");
+		exit_printf(game, "Error: Map is too big for the screen", 2);
 	game->win = mlx_new_window(game->mlx, window_width, window_height,
 			"so_long");
 	if (!game->win)
-		exit_printf(game, "Window creation failed");
+		exit_printf(game, "Window creation failed", 2);
 	mlx_clear_window(game->mlx, game->win);
 	return ;
 }
@@ -64,25 +64,25 @@ void	load_images(t_struct *game)
 
 	game->img_wall = mlx_xpm_file_to_image(game->mlx, "img/wall.xpm", &x, &y);
 	if (!game->img_wall)
-		exit_printf(game, "Failed to load wall image\n");
+		exit_printf(game, "Failed to load wall image", 2);
 	game->img_floor = mlx_xpm_file_to_image(game->mlx, "img/floor.xpm", &x, &y);
 	if (!game->img_floor)
-		exit_printf(game, "Failed to load floor image\n");
+		exit_printf(game, "Failed to load floor image", 2);
 	game->img_player = mlx_xpm_file_to_image(game->mlx, "img/player.xpm", &x,
 			&y);
 	if (!game->img_player)
-		exit_printf(game, "Failed to load player image\n");
+		exit_printf(game, "Failed to load player image", 2);
 	game->img_collectible = mlx_xpm_file_to_image(game->mlx,
 			"img/collectible.xpm", &x, &y);
 	if (!game->img_collectible)
-		exit_printf(game, "Failed to load collectible image\n");
+		exit_printf(game, "Failed to load collectible image", 2);
 	game->img_exit = mlx_xpm_file_to_image(game->mlx, "img/exit.xpm", &x, &y);
 	if (!game->img_exit)
-		exit_printf(game, "Failed to load exit image\n");
+		exit_printf(game, "Failed to load exit image", 2);
 	game->img_exit_player = mlx_xpm_file_to_image(game->mlx,
 			"img/exit_player.xpm", &x, &y);
 	if (!game->img_exit_player)
-		exit_printf(game, "Failed to load exit_player image\n");
+		exit_printf(game, "Failed to load exit_player image", 2);
 	return ;
 }
 

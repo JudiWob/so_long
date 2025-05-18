@@ -85,11 +85,11 @@ void	refresh_map(int new_x, int new_y, t_struct *game)
 	game->player_x = new_x;
 	game->player_y = new_y;
 	game->movecount++;
-	printf("Moves: %d\n", game->movecount);
+	ft_printf(1, "Moves: %d\n", game->movecount);
 	render_map(game);
 	if (game->map[new_y][new_x] == 'S' || game->map[new_y][new_x] == 'E')
 	{
 		if (game->collectibles == 0)
-			exit_printf(game, "💎💎💎🌺 You win! 🌺💎💎💎\n");
+			exit_printf(game, "💎💎💎🌺 You win! 🌺💎💎💎", 1);
 	}
 }
